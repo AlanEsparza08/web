@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arquitectura de Computadoras</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        
+        /* Estilos del menú de navegación */
+        nav {
+            background-color: #2c3e50;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-item {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background-color: #3498db;
+        }
+        
+        .menu-toggle {
+            display: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 0.5rem;
+            text-align: center;
+        }
+        
+        h2 {
+            color: #2980b9;
+            margin-top: 2rem;
+        }
+        
+        h3 {
+            color: #2c3e50;
+            margin-top: 1.5rem;
+        }
+        
+        h4 {
+            color: #2c3e50;
+            margin-top: 1rem;
+        }
+        
+        .highlight {
+            background-color: #f1f8ff;
+            padding: 1rem;
+            border-left: 4px solid #3498db;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        ul {
+            padding-left: 1.5rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        strong {
+            color: #2c3e50;
+        }
+        
+        .concept-box {
+            background-color: #e8f4fc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        
+        .concept-title {
+            font-weight: bold;
+            color: #2980b9;
+            margin-bottom: 0.5rem;
+        }
+        
+        .divider {
+            border-top: 2px dashed #3498db;
+            margin: 2rem 0;
+        }
+        
+        .location {
+            background-color: #f5f5f5;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: #2c3e50;
+            color: white;
+            margin-top: 2rem;
+        }
+        
+        /* Estilos para el temario interactivo */
+        .unit {
+            margin-bottom: 1rem;
+            cursor: pointer;
+        }
+        
+        .unit-title {
+            background-color: #3498db;
+            color: white;
+            padding: 0.8rem 1rem;
+            border-radius: 5px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .unit-title:hover {
+            background-color: #2980b9;
+        }
+        
+        .unit-content {
+            display: none;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 0 0 5px 5px;
+            border: 1px solid #ddd;
+            border-top: none;
+        }
+        
+        .topic {
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtopic {
+            margin-left: 1.5rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .sub-subtopic {
+            margin-left: 3rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .arrow {
+            transition: transform 0.3s;
+        }
+        
+        .unit.active .arrow {
+            transform: rotate(90deg);
+        }
+        
+        .unit.active .unit-content {
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+                margin: 1rem;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0 1rem;
+            }
+            
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                margin-top: 1rem;
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .nav-item {
+                margin: 0.5rem 0;
+            }
+            
+            .menu-toggle {
+                display: block;
+                position: absolute;
+                right: 1rem;
+                top: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Menú de navegación -->
+    <nav>
+       <div class="nav-container">
+        <a href="index.html" class="nav-logo">Arq. Computadoras</a>
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <ul class="nav-menu" id="navMenu">
+            <li class="nav-item"><a href="index.html" class="nav-link active">Inicio</a></li>
+            <li class="nav-item"><a href="unidad1.html" class="nav-link">Unidad 1</a></li>
+            <li class="nav-item"><a href="unidad2.html" class="nav-link">Unidad 2</a></li>
+            <li class="nav-item"><a href="unidad3.html" class="nav-link">Unidad 3</a></li>
+            <li class="nav-item"><a href="unidad4.html" class="nav-link">Unidad 4</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="container" id="inicio">
+        <h1>Arquitectura de Computadoras</h1>
+        
+        <p>La <strong>Arquitectura de Computadoras</strong> es una disciplina fundamental que estudia el diseño, organización y funcionamiento interno de los componentes esenciales de una computadora, así como su interacción para procesar información de manera eficiente.</p>
+        
+        <div class="highlight">
+            <p>Esta materia aborda los elementos clave de un sistema computacional:</p>
+        </div>
+        
+        <ul>
+            <li><strong>CPU</strong> - Unidad Central de Procesamiento, encargada de ejecutar instrucciones</li>
+            <li><strong>Memoria RAM</strong> - Almacena datos y programas en ejecución</li>
+            <li><strong>Dispositivos de almacenamiento</strong> - Discos duros y SSDs que guardan información permanentemente</li>
+            <li><strong>Tarjeta madre</strong> - Placa base que interconecta todos los componentes</li>
+            <li><strong>Periféricos</strong> - Dispositivos de entrada y salida para la comunicación con el usuario</li>
+        </ul>
+        
+        <div class="concept-box">
+            <div class="concept-title">Jerarquía de Memoria</div>
+            <p>Un aspecto clave es la <strong>jerarquía de memoria</strong>, que va desde los registros y caché (los más rápidos pero de menor capacidad) hasta la RAM y el almacenamiento secundario (más lentos pero con mayor espacio).</p>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-title">Ciclo de Instrucción</div>
+            <p>Se estudia cómo la CPU gestiona las instrucciones mediante ciclos de <em>fetch</em>, <em>decode</em>, <em>execute</em> y <em>store</em>, así como técnicas de optimización como el <em>pipeline</em> y las diferencias entre arquitecturas <strong>CISC</strong> y <strong>RISC</strong>.</p>
+        </div>
+        
+        <h2>Componentes Principales</h2>
+        <p>La arquitectura de computadoras se centra en comprender cómo interactúan estos componentes para ejecutar programas y procesar datos de manera eficiente. Cada elemento tiene un rol específico en el flujo de información dentro del sistema.</p>
+        
+        <h2>Optimización del Rendimiento</h2>
+        <p>Los arquitectos de computadoras buscan constantemente formas de mejorar el rendimiento mediante técnicas como el paralelismo, la segmentación (pipelining) y la jerarquía de memoria, equilibrando velocidad, capacidad y costo.</p>
+        
+        <div class="divider"></div>
+        
+        <h2 id="unidad1">Temario Interactivo</h2>
+        
+        <!-- Unidad 1 -->
+        <div class="unit" onclick="toggleUnit(this)">
+            <div class="unit-title">
+                <span>U1. Arquitectura de Computadoras</span>
+                <span class="arrow">▶</span>
+            </div>
+            <div class="unit-content">
+                <!-- 1.1 Modelos de arquitecturas de cómputo -->
+                <div class="topic">
+                    <h4>1.1. Modelos de arquitecturas de cómputo</h4>
+                    <div class="subtopic">1.1.1 Clásicas</div>
+                    <div class="subtopic">1.1.2 Segmentadas</div>
+                    <div class="subtopic">1.1.3 De multiprocesamiento</div>
+                </div>
+                
+                <!-- 1.2 Análisis de los componentes -->
+                <div class="topic">
+                    <h4>1.2 Análisis de los componentes</h4>
+                    
+                    <!-- 1.2.1 Arquitecturas -->
+                    <div class="subtopic">1.2.1 Arquitecturas</div>
+                    <div class="sub-subtopic">1.2.1.1 Unidad central de procesamiento</div>
+                    <div class="sub-subtopic">1.2.1.2 Unidad Aritmética lógica</div>
+                    <div class="sub-subtopic">1.2.1.3 Registros</div>
+                    <div class="sub-subtopic">1.2.1.4 Buses</div>
+                    
+                    <!-- 1.2.2 Memoria -->
+                    <div class="subtopic">1.2.2 Memoria</div>
+                    <div class="sub-subtopic">1.2.2.1 Conceptos básicos del manejo de memoria</div>
+                    <div class="sub-subtopic">1.2.2.2 Memoria principal</div>
+                    <div class="sub-subtopic">1.2.2.3 Memoria Cache</div>
+                    
+                    <!-- 1.2.3 Manejo de la entrada/salida -->
+                    <div class="subtopic">1.2.3 Manejo de la entrada/salida</div>
+                    <div class="sub-subtopic">1.2.3.1 Módulos de entrada/salida</div>
+                    <div class="sub-subtopic">1.2.3.2 Entrada/salida programada</div>
+                    <div class="sub-subtopic">1.2.3.3 Entrada/salida mediante interrupciones</div>
+                    <div class="sub-subtopic">1.2.3.4 Acceso directo a memoria</div>
+                    <div class="sub-subtopic">1.2.3.5 Canales y procesadores de entrada/salida</div>
+                    
+                    <!-- 1.2.4 Buses -->
+                    <div class="subtopic">1.2.4 Buses</div>
+                    <div class="sub-subtopic">1.2.4.1 Tipo de buses</div>
+                    <div class="sub-subtopic">1.2.4.2 Estructura de los buses</div>
+                    <div class="sub-subtopic">1.2.4.3 Jerarquía de los buses</div>
+                    
+                    <!-- 1.2.5 Interrupciones -->
+                    <div class="subtopic">1.2.5 Interrupciones</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Unidad 2 -->
+        <div class="unit" onclick="toggleUnit(this)" id="unidad2">
+            <div class="unit-title">
+                <span>U2. Estructura y funcionamiento de la unidad central de procesamiento</span>
+                <span class="arrow">▶</span>
+            </div>
+            <div class="unit-content">
+                <!-- 2.1 Organización del procesador -->
+                <div class="topic">
+                    <h4>2.1 Organización del procesador</h4>
+                </div>
+                
+                <!-- 2.2 Estructura de registros -->
+                <div class="topic">
+                    <h4>2.2 Estructura de registros</h4>
+                    <div class="subtopic">2.2.1 Registros visibles para el usuario</div>
+                    <div class="subtopic">2.2.2 Registros de control y de estados</div>
+                    <div class="subtopic">2.2.3 Ejemplos de registros de CPU reales</div>
+                </div>
+                
+                <!-- 2.3 El ciclo de instrucción -->
+                <div class="topic">
+                    <h4>2.3 El ciclo de instrucción</h4>
+                    <div class="subtopic">2.3.1 Ciclo Fetch - Decode - Execute</div>
+                    <div class="subtopic">2.3.2 Segmentación de instrucciones</div>
+                    <div class="subtopic">2.3.3 Conjunto de instrucciones</div>
+                    <div class="subtopic">2.3.4 Modos de direccionamiento</div>
+                </div>
+                
+                <!-- 2.4 Casos de estudio de CPU reales -->
+                <div class="topic">
+                    <h4>2.4 Casos de estudio de CPU reales</h4>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Unidad 3 -->
+        <div class="unit" onclick="toggleUnit(this)" id="unidad3">
+            <div class="unit-title">
+                <span>U3. Selección de componentes para ensamble de equipo de cómputo</span>
+                <span class="arrow">▶</span>
+            </div>
+            <div class="unit-content">
+                <!-- 3.1 Chipset -->
+                <div class="topic">
+                    <h4>3.1 Chipset</h4>
+                    <div class="subtopic">3.1.1 Unidad central de procesamiento (CPU)</div>
+                    <div class="subtopic">3.1.2 Controlador del bus</div>
+                    <div class="subtopic">3.1.3 Puertas de entrada/salida (E/S)</div>
+                    <div class="subtopic">3.1.4 Controlador de interrupciones</div>
+                    <div class="subtopic">3.1.5 Controlador de acceso directo a memoria (DMA)</div>
+                    <div class="subtopic">3.1.6 Circuitos de temporización</div>
+                    <div class="subtopic">3.1.7 Circuitos de control</div>
+                    <div class="subtopic">3.1.8 Controladores de video</div>
+                </div>
+                
+                <!-- 3.2 Aplicaciones -->
+                <div class="topic">
+                    <h4>3.2 Aplicaciones</h4>
+                    <div class="subtopic">3.2.1 Entrada/salida</div>
+                    <div class="subtopic">3.2.2 Almacenamiento</div>
+                    <div class="subtopic">3.2.3 Fuentes de alimentación</div>
+                </div>
+                
+                <!-- 3.3 Ambientes de Servicio -->
+                <div class="topic">
+                    <h4>3.3 Ambientes de Servicio</h4>
+                    <div class="subtopic">3.3.1 Negocios</div>
+                    <div class="subtopic">3.3.2 Industria</div>
+                    <div class="subtopic">3.3.3 Comercio Electrónico</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Unidad 4 -->
+        <div class="unit" onclick="toggleUnit(this)" id="unidad4">
+            <div class="unit-title">
+                <span>U4. Aspectos Básicos de la Computación Paralela</span>
+                <span class="arrow">▶</span>
+            </div>
+            <div class="unit-content">
+                <!-- 4.1 Tipos de Computación Paralela -->
+                <div class="topic">
+                    <h4>4.1 Tipos de Computación Paralela</h4>
+                    <div class="subtopic">4.1.1 Clasificación</div>
+                    <div class="subtopic">4.1.2 Arquitectura de Computadoras Secuenciales</div>
+                    <div class="subtopic">4.1.3 Organización de Direcciones de Memoria</div>
+                </div>
+                
+                <!-- 4.2 Sistemas de Memoria Compartida -->
+                <div class="topic">
+                    <h4>4.2 Sistemas de Memoria Compartida</h4>
+                    <div class="subtopic">4.2.1 Redes de Interconexión Dinámicas ó Indirectas</div>
+                    <div class="sub-subtopic">4.2.1.1 Redes de Medio Compartido</div>
+                    <div class="sub-subtopic">4.2.1.2 Redes Commutadas</div>
+                </div>
+                
+                <!-- 4.3 Sistemas de Memoria Distribuida: Multiprocesadores -->
+                <div class="topic">
+                    <h4>4.3 Sistemas de Memoria Distribuida: Multiprocesadores</h4>
+                    <div class="subtopic">4.3.1 Redes de Interconexión Estáticas</div>
+                </div>
+                
+                <!-- 4.4 Casos de Estudio -->
+                <div class="topic">
+                    <h4>4.4 Casos de Estudio</h4>
+                </div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="location">
+            <h3>Ubicación del Instituto Tecnológico de Saltillo</h3>
+            <p><strong>Tecnológico Nacional de México:</strong></p>
+            <p>Blvd. Venustiano Carranza, Pte.</p>
+            <p>Tecnológico 2400, 25230 Saltillo, Coah.</p>
+        </div>
+    </div>
+    
+    <footer>
+        © 2023 Arquitectura de Computadoras - Todos los derechos reservados
+    </footer>
+
+    <script>
+        function toggleUnit(unitElement) {
+            unitElement.classList.toggle('active');
+        }
+        
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+        
+        // Cambiar clase activa al hacer clic en los enlaces del menú
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Ocultar menú en móviles después de seleccionar una opción
+                if (window.innerWidth <= 768) {
+                    document.getElementById('navMenu').classList.remove('active');
+                }
+            });
+        });
+        
+        // Cerrar menú al hacer clic fuera de él (solo móviles)
+        document.addEventListener('click', function(event) {
+            const navMenu = document.getElementById('navMenu');
+            const menuToggle = document.querySelector('.menu-toggle');
+            
+            if (window.innerWidth <= 768 && 
+                !event.target.closest('.nav-menu') && 
+                !event.target.closest('.menu-toggle')) {
+                navMenu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

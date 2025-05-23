@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unidad 1: Arquitectura de Computadoras</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        
+        nav {
+            background-color: #2c3e50;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-item {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background-color: #3498db;
+        }
+        
+        .menu-toggle {
+            display: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 0.5rem;
+            text-align: center;
+        }
+        
+        h2 {
+            color: #2980b9;
+            margin-top: 2rem;
+        }
+        
+        h3 {
+            color: #2c3e50;
+            margin-top: 1.5rem;
+        }
+        
+        h4 {
+            color: #2c3e50;
+            margin-top: 1rem;
+        }
+        
+        .highlight {
+            background-color: #f1f8ff;
+            padding: 1rem;
+            border-left: 4px solid #3498db;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        ul {
+            padding-left: 1.5rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        strong {
+            color: #2c3e50;
+        }
+        
+        .concept-box {
+            background-color: #e8f4fc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        
+        .concept-title {
+            font-weight: bold;
+            color: #2980b9;
+            margin-bottom: 0.5rem;
+        }
+        
+        .divider {
+            border-top: 2px dashed #3498db;
+            margin: 2rem 0;
+        }
+        
+        .location {
+            background-color: #f5f5f5;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: #2c3e50;
+            color: white;
+            margin-top: 2rem;
+        }
+        
+        .unit {
+            margin-bottom: 1rem;
+            cursor: pointer;
+        }
+        
+        .unit-title {
+            background-color: #3498db;
+            color: white;
+            padding: 0.8rem 1rem;
+            border-radius: 5px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .unit-title:hover {
+            background-color: #2980b9;
+        }
+        
+        .unit-content {
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 0 0 5px 5px;
+            border: 1px solid #ddd;
+            border-top: none;
+        }
+        
+        .topic {
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtopic {
+            margin-left: 1.5rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .sub-subtopic {
+            margin-left: 3rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .arrow {
+            transition: transform 0.3s;
+        }
+        
+        .unit.active .arrow {
+            transform: rotate(90deg);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+                margin: 1rem;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0 1rem;
+            }
+            
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                margin-top: 1rem;
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .nav-item {
+                margin: 0.5rem 0;
+            }
+            
+            .menu-toggle {
+                display: block;
+                position: absolute;
+                right: 1rem;
+                top: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+          <div class="nav-container">
+            <a href="index.html" class="nav-logo">Arq. Computadoras</a>
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Inicio</a></li>
+                <li class="nav-item"><a href="unidad1.html" class="nav-link active">Unidad 1</a></li>
+                <li class="nav-item"><a href="unidad2.html" class="nav-link">Unidad 2</a></li>
+                <li class="nav-item"><a href="unidad3.html" class="nav-link">Unidad 3</a></li>
+                <li class="nav-item"><a href="unidad4.html" class="nav-link">Unidad 4</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Unidad 1: Arquitectura de Computadoras</h1>
+        
+        <!-- 1.1 Modelos de arquitecturas de cómputo -->
+        <div class="unit active">
+            <div class="unit-title" onclick="toggleUnit(this.parentElement)">
+                <span>1.1 Modelos de arquitecturas de cómputo</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="unit-content" style="display: block;">
+                <div class="subtopic">
+                    <h3>1.1.1 Clásicas</h3>
+                    <p>Arquitecturas tradicionales como Von Neumann y Harvard, donde las instrucciones y datos se almacenan en memoria y se procesan secuencialmente.</p>
+                </div>
+                
+                <div class="subtopic">
+                    <h3>1.1.2 Segmentadas</h3>
+                    <p>Dividen el procesamiento en etapas (pipeline) permitiendo ejecutar múltiples instrucciones simultáneamente en diferentes fases.</p>
+                </div>
+                
+                <div class="subtopic">
+                    <h3>1.1.3 De multiprocesamiento</h3>
+                    <p>Utilizan múltiples CPUs o núcleos para ejecutar tareas en paralelo. Incluye sistemas SMP y NUMA.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 1.2 Análisis de los componentes -->
+        <div class="unit">
+            <div class="unit-title" onclick="toggleUnit(this.parentElement)">
+                <span>1.2 Análisis de los componentes</span>
+                <span class="arrow">▶</span>
+            </div>
+            <div class="unit-content">
+                <!-- 1.2.1 Arquitecturas -->
+                <div class="subtopic">
+                    <h3>1.2.1 Arquitecturas</h3>
+                    <div class="sub-subtopic">
+                        <h4>1.2.1.1 Unidad central de procesamiento (CPU)</h4>
+                        <p>Cerebro del computador que ejecuta instrucciones. Componentes clave: Unidad de Control, ALU y registros.</p>
+                    </div>
+                    <div class="sub-subtopic">
+                        <h4>1.2.1.2 Unidad Aritmética Lógica (ALU)</h4>
+                        <p>Realiza operaciones matemáticas y lógicas. Su diseño afecta directamente el rendimiento.</p>
+                    </div>
+                    <div class="sub-subtopic">
+                        <h4>1.2.1.3 Registros</h4>
+                        <p>Pequeñas memorias ultrarrápidas dentro de la CPU para almacenamiento temporal.</p>
+                    </div>
+                    <div class="sub-subtopic">
+                        <h4>1.2.1.4 Buses</h4>
+                        <p>Canales de comunicación entre componentes del sistema.</p>
+                    </div>
+                </div>
+                
+                <!-- 1.2.2 Memoria -->
+                <div class="subtopic">
+                    <h3>1.2.2 Memoria</h3>
+                    <div class="sub-subtopic">
+                        <h4>1.2.2.1 Conceptos básicos del manejo de memoria</h4>
+                        <p>Fundamentos sobre cómo se organiza y accede a la memoria.</p>
+                    </div>
+                    <div class="sub-subtopic">
+                        <h4>1.2.2.2 Memoria principal (RAM)</h4>
+                        <p>Almacena datos y programas en ejecución. Volátil y de acceso rápido.</p>
+                    </div>
+                    <div class="sub-subtopic">
+                        <h4>1.2.2.3 Memoria Caché</h4>
+                        <p>Memoria pequeña y ultrarrápida cerca del CPU para datos frecuentes.</p>
+                    </div>
+                </div>
+                
+                <!-- 1.2.3 Manejo de la entrada/salida -->
+                <div class="subtopic">
+                    <h3>1.2.3 Manejo de la entrada/salida</h3>
+                    <div class="sub-subtopic">
+                        <h4>1.2.3.1 Módulos de E/S</h4>
+                        <p>Interfaz entre periféricos y el sistema computacional.</p>
+                    </div>
+                    <div class="sub-subtopic">
+                        <h4>1.2.3.2 E/S programada</h4>
+                        <p>CPU controla directamente la transferencia mediante polling.</p>
+                    </div>
+                    <div class="sub-subtopic">
+                        <h4>1.2.3.3 E/S mediante interrupciones</h4>
+                        <p>Dispositivo notifica a CPU cuando está listo mediante señal.</p>
+                    </div>
+                    <div class="sub-subtopic">
+                        <h4>1.2.3.4 Acceso directo a memoria (DMA)</h4>
+                        <p>Transferencia de datos sin intervención constante de la CPU.</p>
+                    </div>
+                    <div class="sub-subtopic">
+                        <h4>1.2.3.5 Canales y procesadores de E/S</h4>
+                        <p>CPUs especializados para manejar operaciones de entrada/salida.</p>
+                    </div>
+                </div>
+                
+                <!-- 1.2.4 Buses -->
+                <div class="subtopic">
+                    <h3>1.2.4 Buses</h3>
+                    <div class="sub-subtopic">
+                        <h4>1.2.4.1 Tipos de buses</h4>
+                        <p>Clasificación según su función y características.</p>
+                    </div>
+                    <div class="sub-subtopic">
+                        <h4>1.2.4.2 Estructura de los buses</h4>
+                        <p>Componentes y organización de los canales de comunicación.</p>
+                    </div>
+                    <div class="sub-subtopic">
+                        <h4>1.2.4.3 Jerarquía de buses</h4>
+                        <p>Niveles de buses en el sistema computacional.</p>
+                    </div>
+                </div>
+                
+                <!-- 1.2.5 Interrupciones -->
+                <div class="subtopic">
+                    <h3>1.2.5 Interrupciones</h3>
+                    <p>Mecanismo para notificar a la CPU eventos importantes que requieren atención inmediata.</p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            © 2023 Arquitectura de Computadoras - Unidad 1 - Todos los derechos reservados
+        </footer>
+    </div>
+
+    <script>
+        // Mismo script que en el index.html
+        function toggleUnit(unitElement) {
+            const content = unitElement.querySelector('.unit-content');
+            const arrow = unitElement.querySelector('.arrow');
+            
+            if (content.style.display === 'block') {
+                content.style.display = 'none';
+                arrow.textContent = '▶';
+            } else {
+                content.style.display = 'block';
+                arrow.textContent = '▼';
+            }
+        }
+        
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

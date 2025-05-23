@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>U4: Computación Paralela</title>
+    <style>
+        /* Todos los estilos se mantienen igual que en unidades anteriores */
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        
+        nav {
+            background-color: #2c3e50;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-item {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background-color: #3498db;
+        }
+        
+        .menu-toggle {
+            display: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 0.5rem;
+            text-align: center;
+        }
+        
+        h2 {
+            color: #2980b9;
+            margin-top: 2rem;
+        }
+        
+        h3 {
+            color: #2c3e50;
+            margin-top: 1.5rem;
+        }
+        
+        h4 {
+            color: #2c3e50;
+            margin-top: 1rem;
+        }
+        
+        .unit {
+            margin-bottom: 1rem;
+            cursor: pointer;
+        }
+        
+        .unit-title {
+            background-color: #3498db;
+            color: white;
+            padding: 0.8rem 1rem;
+            border-radius: 5px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .unit-title:hover {
+            background-color: #2980b9;
+        }
+        
+        .unit-content {
+            display: none;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 0 0 5px 5px;
+            border: 1px solid #ddd;
+            border-top: none;
+        }
+        
+        .unit.active .unit-content {
+            display: block;
+        }
+        
+        .arrow {
+            transition: transform 0.3s;
+        }
+        
+        .unit.active .arrow {
+            transform: rotate(90deg);
+        }
+        
+        .subtopic {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .sub-subtopic {
+            margin-left: 3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: #2c3e50;
+            color: white;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+                margin: 1rem;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0 1rem;
+            }
+            
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                margin-top: 1rem;
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .nav-item {
+                margin: 0.5rem 0;
+            }
+            
+            .menu-toggle {
+                display: block;
+                position: absolute;
+                right: 1rem;
+                top: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">Arq. Computadoras</a>
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Inicio</a></li>
+                <li class="nav-item"><a href="unidad1.html" class="nav-link">Unidad 1</a></li>
+                <li class="nav-item"><a href="unidad2.html" class="nav-link">Unidad 2</a></li>
+                <li class="nav-item"><a href="unidad3.html" class="nav-link">Unidad 3</a></li>
+                <li class="nav-item"><a href="unidad4.html" class="nav-link active">Unidad 4</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>U4. Aspectos Básicos de la Computación Paralela</h1>
+        
+        <!-- 4.1 Tipos de Computación Paralela -->
+        <div class="unit active">
+            <div class="unit-title" onclick="toggleUnit(this.parentElement)">
+                <span>4.1 Tipos de Computación Paralela</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="unit-content" style="display: block;">
+                <div class="subtopic">
+                    <h4>4.1.1 Clasificación</h4>
+                    <p>Taxonomía de Flynn: SISD (secuencial), SIMD (vectorial), MISD (especializado), MIMD (paralelo masivo). Paralelismo a nivel de bit, instrucción, datos y tareas.</p>
+                </div>
+                
+                <div class="subtopic">
+                    <h4>4.1.2 Arquitectura de Computadoras Secuenciales</h4>
+                    <p>Modelo Von Neumann tradicional con ejecución secuencial. Limitaciones: cuello de botella en bus y dependencia de instrucciones. Comparación con Harvard.</p>
+                </div>
+                
+                <div class="subtopic">
+                    <h4>4.1.3 Organización de Direcciones de Memoria</h4>
+                    <p>Big-Endian vs Little-Endian. Alineamiento de memoria. Memoria intercalada (banking) para acceso paralelo. Ejemplo: 4-way interleaving.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 4.2 Sistemas de Memoria Compartida -->
+        <div class="unit">
+            <div class="unit-title" onclick="toggleUnit(this.parentElement)">
+                <span>4.2 Sistemas de Memoria Compartida</span>
+                <span class="arrow">▶</span>
+            </div>
+            <div class="unit-content">
+                <div class="subtopic">
+                    <h4>4.2.1 Redes de Interconexión Dinámicas ó Indirectas</h4>
+                    <div class="sub-subtopic">
+                        <h5>4.2.1.1 Redes de Medio Compartido</h5>
+                        <p>Bus común (Ej: PCIe). Ventaja: simplicidad. Desventaja: contención. Técnicas: arbitraje, prioridades. Uso en multiprocesadores pequeños.</p>
+                    </div>
+                    <div class="sub-subtopic">
+                        <h5>4.2.1.2 Redes Commutadas</h5>
+                        <p>Crossbar (matriz completa) y multietapa (Omega, Butterfly). Mayor escalabilidad. Latencia y ancho de banda variables. Usado en NUMA.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 4.3 Sistemas de Memoria Distribuida -->
+        <div class="unit">
+            <div class="unit-title" onclick="toggleUnit(this.parentElement)">
+                <span>4.3 Sistemas de Memoria Distribuida: Multiprocesadores</span>
+                <span class="arrow">▶</span>
+            </div>
+            <div class="unit-content">
+                <div class="subtopic">
+                    <h4>4.3.1 Redes de Interconexión Estáticas</h4>
+                    <p>Topologías: malla (mesh), toro (torus), hipercubo, árbol. Ventajas en algoritmos con patrones de comunicación específicos. Ejemplo: supercomputadoras basadas en clusters.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 4.4 Casos de Estudio -->
+        <div class="unit">
+            <div class="unit-title" onclick="toggleUnit(this.parentElement)">
+                <span>4.4 Casos de Estudio</span>
+                <span class="arrow">▶</span>
+            </div>
+            <div class="unit-content">
+                <p>Análisis de arquitecturas paralelas reales: Cray XE6 (memoria compartida), IBM Blue Gene/Q (memoria distribuida), NVIDIA GPU (SIMT), Google TPU (matrices de procesadores). Comparativa de rendimiento y eficiencia energética.</p>
+            </div>
+        </div>
+        
+        <footer>
+            © 2023 Arquitectura de Computadoras - Unidad 4 - Todos los derechos reservados
+        </footer>
+    </div>
+
+    <script>
+        function toggleUnit(unitElement) {
+            unitElement.classList.toggle('active');
+            const arrow = unitElement.querySelector('.arrow');
+            const content = unitElement.querySelector('.unit-content');
+            
+            if (unitElement.classList.contains('active')) {
+                arrow.style.transform = 'rotate(90deg)';
+                content.style.display = 'block';
+            } else {
+                arrow.style.transform = 'rotate(0deg)';
+                content.style.display = 'none';
+            }
+        }
+        
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+        
+        // Cerrar menú al hacer clic fuera de él en móviles
+        document.addEventListener('click', function(event) {
+            if (window.innerWidth <= 768) {
+                const navMenu = document.getElementById('navMenu');
+                const menuToggle = document.querySelector('.menu-toggle');
+                
+                if (!event.target.closest('.nav-menu') && !event.target.closest('.menu-toggle')) {
+                    navMenu.classList.remove('active');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
